@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "mongo": "mongod --dbpath=C:\\Program Files\\MongoDB\\Server\\4.0\\bin\\",
-    "start": "tsc -w && npm run mongo"
+    "nodemon": "wait-on ./build/index.js && nodemon ./build/index.js",
+    "start": "concurrent \"rimraf build\" \"tsc -w\" \"npm run mongo\" \"npm run nodemon\" "
   },
   "keywords": [],
   "author": "",
@@ -22,8 +23,8 @@
     "typescript": "^3.0.3"
   },
   "devDependencies": {
+    "concurrent": "^0.3.2",
     "concurrently": "^4.0.1",
-    "rimraf": "^2.6.2",
     "wait-on": "^3.0.1"
   }
 }
