@@ -1,5 +1,6 @@
 import http from "http";
 import Server from "./server";
+import { AddressInfo } from "net";
 
 class App {
     constructor(private port?: number) {
@@ -15,8 +16,8 @@ class App {
         }
     }
 
-    onListen(address: any) {
-        console.log(`Litening on ${this.port}`);
+    onListen(address: string | AddressInfo) {
+        console.log(`Litening on ${this.port} with address : ${address}`);
     }
 
     error(error: any) {
