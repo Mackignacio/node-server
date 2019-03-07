@@ -1,37 +1,36 @@
-import http from "http";
-import Server from "./server";
-import { AddressInfo } from "net";
+import express, { Request, Response, NextFunction } from "express";
+import { connect, connection } from "mongoose";
+import bodyParser from "body-parser";
+import logger from "morgan";
+import { load } from "dotenv";
+load();
 
-class App {
-    constructor(private port?: number) {
-        this.port = this.normalizeport(process.env.port || 3333);
-    }
+const app = express();
 
-    async initializeApp() {
-        try {
-            const serverApp = Server.serverApp;
-            const app = http.createServer(serverApp).listen(this.port, () => this.onListen(app.address()));
-        } catch (error) {
-            this.error(error);
-        }
-    }
+app.use(logger("dev"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-    onListen(address: string | AddressInfo) {
-        console.log(`Litening on ${this.port} with address : ${address}`);
-    }
+// Check if on development mode
+const isdev = process.env.NODE_ENV === "development";
 
-    error(error: any) {
-        if (error.syscall !== "listen" || error.code !== "EACCES" || error.coden !== "EADDRINUSE") {
-            throw error;
-        }
-    }
+// Get port on env
+const PORT = process.env.PORT;
 
-    normalizeport(num: any) {
-        const port = parseInt(num, 10);
-        return isNaN(port) ? num : port;
-    }
+// Connect to mongodb database
+connect(
+  process.env.MONGO_URl || "MONGODB_CONNECTION",
+  { useNewUrlParser: true }
+);
 
+// When connection is successful
+connection.once("open", () => console.log("Connected to mongodb database"));
 
-}
+// When connection is failed
+connection.once("error", error => console.log("Failed connecting to database. \nError:", error));
 
-new App().initializeApp();
+// ROUTES
+app.get("/");
+
+// Start the server
+const server = app.listen(PORT, () => console.log(`Listening for request on port ${PORT}`));
