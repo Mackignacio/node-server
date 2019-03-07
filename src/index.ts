@@ -1,9 +1,9 @@
-import express, { Request, Response, NextFunction } from "express";
-import { Routes } from "./routes";
 import { connect, connection } from "mongoose";
 import errorHandler from "errorhandler";
 import bodyParser from "body-parser";
+import { Routes } from "./routes";
 import { load } from "dotenv";
+import express from "express";
 import logger from "morgan";
 import cors from "cors";
 load();
