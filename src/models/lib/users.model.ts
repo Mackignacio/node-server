@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import paginate = require("mongoose-paginate");
+import paginate from "mongoose-paginate";
 
 const SchemaOptions = {
   timestamps: {
