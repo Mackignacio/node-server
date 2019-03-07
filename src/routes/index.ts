@@ -1,2 +1,9 @@
-export * from "./lib/users.routes";
-export * from "./lib/products.routes";
+import { Express } from "express";
+import users from "./lib/users.routes";
+import products from "./lib/products.routes";
+
+export const routes = (app: Express) => {
+  // ROUTES
+  app.use("/users", users);
+  app.use("/products", products);
+};
