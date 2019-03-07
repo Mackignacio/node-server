@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-const router = Router();
+const products = Router();
 
-router.get("/", (req, res) => {
+products.get("/", (req, res) => {
   res.json({ message: "GET /products" });
 });
 
-export const products = router;
+export = products;
