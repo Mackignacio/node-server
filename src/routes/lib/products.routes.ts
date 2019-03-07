@@ -6,14 +6,12 @@ class Products {
   model = models["users"];
 
   constructor() {
-    this.router.get("/", this.getAllProducts());
+    this.router.get("/", (req: Request, res: Response) => this.getAllProducts(req, res));
   }
 
-  getAllProducts() {
-    return async (req: Request, res: Response) => {
-      const result = await this.model.find({});
-      res.json(result);
-    };
+  async getAllProducts(req: Request, res: Response) {
+    const result = await this.model.find({});
+    res.json(result);
   }
 }
 
