@@ -1,9 +1,13 @@
 import { Router } from "express";
 
-const users = Router();
+class Users {
+  router = Router();
 
-users.get("/", (req, res) => {
-  res.json({ message: "GET /user" });
-});
+  constructor() {
+    this.router.get("/", (req, res) => {
+      res.json({ message: "GET /user" });
+    });
+  }
+}
 
-export = users;
+export const users = new Users().router;
