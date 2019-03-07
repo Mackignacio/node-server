@@ -6,14 +6,12 @@ class Users {
   model = models["users"];
 
   constructor() {
-    this.router.get("/", this.getAllUsers());
+    this.router.get("/", (req: Request, res: Response) => this.getAllUsers(req, res));
   }
 
-  getAllUsers() {
-    return async (req: Request, res: Response) => {
-      const result = await this.model.find({});
-      res.json(result);
-    };
+  async getAllUsers(req: Request, res: Response) {
+    const result = await this.model.find({});
+    res.json(result);
   }
 }
 
