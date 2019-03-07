@@ -20,6 +20,7 @@ const UserSchema = new Schema(
     },
     product_id: {
       type: Schema.Types.ObjectId,
+      ref: "Product",
       required: [true, "Product ID is required."],
     },
   },

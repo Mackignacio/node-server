@@ -10,7 +10,7 @@ class Users {
   }
 
   async getAllUsers(req: Request, res: Response) {
-    const result = await this.model.find({});
+    const result = await this.model.find({}).populate("product_id");
     res.json(result);
   }
 }
