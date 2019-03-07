@@ -1,10 +1,11 @@
 import express, { Request, Response, NextFunction } from "express";
+import { users } from "./routes";
 import { connect, connection } from "mongoose";
-import bodyParser from "body-parser";
 import errorHandler from "errorhandler";
+import bodyParser from "body-parser";
+import { load } from "dotenv";
 import logger from "morgan";
 import cors from "cors";
-import { load } from "dotenv";
 load();
 
 // Define express app
@@ -28,7 +29,7 @@ const PORT = process.env.PORT;
 
 // Connect to mongodb database
 connect(
-  process.env.MONGO_URl || "MONGODB_CONNECTION",
+  process.env.MONGO_URL || "MONGODB_CONNECTION",
   { useNewUrlParser: true }
 );
 
@@ -39,7 +40,7 @@ connection.once("open", () => console.log("Connected to mongodb database"));
 connection.once("error", error => console.log("Failed connecting to database. \nError:", error));
 
 // ROUTES
-app.get("/");
+app.use("/users", users);
 
 // Error handler
 if (app.get("env") === "development") {
