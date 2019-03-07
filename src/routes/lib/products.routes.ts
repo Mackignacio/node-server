@@ -3,7 +3,7 @@ import models from "../../models";
 
 class Products {
   router = Router();
-  model = models["users"];
+  model = models["products"];
 
   constructor() {
     this.router.get("/", (req: Request, res: Response) => this.getAllProducts(req, res));
