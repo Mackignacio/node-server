@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import { connect, connection } from "mongoose";
 import bodyParser from "body-parser";
+import errorHandler from "errorhandler";
 import logger from "morgan";
 import { load } from "dotenv";
 load();
@@ -31,6 +32,11 @@ connection.once("error", error => console.log("Failed connecting to database. \n
 
 // ROUTES
 app.get("/");
+
+// Error handler
+if (app.get("env") === "development") {
+  app.use(errorHandler());
+}
 
 // Start the server
 const server = app.listen(PORT, () => console.log(`Listening for request on port ${PORT}`));
