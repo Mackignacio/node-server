@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import { routes } from "./routes";
+import { Routes } from "./routes";
 import { connect, connection } from "mongoose";
 import errorHandler from "errorhandler";
 import bodyParser from "body-parser";
@@ -40,7 +40,7 @@ connection.once("open", () => console.log("Connected to mongodb database"));
 connection.once("error", error => console.log("Failed connecting to database. \nError:", error));
 
 // ROUTES
-routes(app);
+Routes(app);
 
 // Error handler
 if (app.get("env") === "development") {
