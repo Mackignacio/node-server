@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import { users } from "./routes";
+import { users, products } from "./routes";
 import { connect, connection } from "mongoose";
 import errorHandler from "errorhandler";
 import bodyParser from "body-parser";
@@ -41,6 +41,7 @@ connection.once("error", error => console.log("Failed connecting to database. \n
 
 // ROUTES
 app.use("/users", users);
+app.use("/products", products);
 
 // Error handler
 if (app.get("env") === "development") {
