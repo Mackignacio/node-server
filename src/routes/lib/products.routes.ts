@@ -1,9 +1,13 @@
 import { Router } from "express";
 
-const products = Router();
+class Products {
+  router = Router();
 
-products.get("/", (req, res) => {
-  res.json({ message: "GET /products" });
-});
+  constructor() {
+    this.router.get("/", (req, res) => {
+      res.json({ message: "GET /products" });
+    });
+  }
+}
 
-export = products;
+export const products = new Products().router;
