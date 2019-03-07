@@ -3,14 +3,22 @@ import { connect, connection } from "mongoose";
 import bodyParser from "body-parser";
 import errorHandler from "errorhandler";
 import logger from "morgan";
+import cors from "cors";
 import { load } from "dotenv";
 load();
 
+// Define express app
 const app = express();
+const corsOptions = {
+  origin: "http://localhost:4200",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
+// Add middleware and environments
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
 
 // Check if on development mode
 const isdev = process.env.NODE_ENV === "development";
