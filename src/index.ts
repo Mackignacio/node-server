@@ -1,51 +1,38 @@
-import { connect, connection } from "mongoose";
+// Node_modules imports
+import express, { Express } from "express";
 import errorHandler from "errorhandler";
 import bodyParser from "body-parser";
-import { Routes } from "./routes";
-import { load } from "dotenv";
-import express from "express";
-import logger from "morgan";
-import cors from "cors";
-load();
+import config from "./helper/config";
+import morgan from "morgan";
+import http from "http";
 
-// Define express app
-const app = express();
-const corsOptions = {
-  origin: "http://localhost:4200",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+// Local imports
+import { Router } from "./router";
 
-// Add middleware and environments
-app.use(logger("dev"));
+// Create express app
+const app: Express = express();
+
+// Define port number
+const port = config.PORT;
+
+// Define all middleware that express app will use
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors(corsOptions));
-
-// Check if on development mode
-const isdev = process.env.NODE_ENV === "development";
-
-// Get port on env
-const PORT = process.env.PORT;
-
-// Connect to mongodb database
-connect(
-  process.env.MONGO_URL || "MONGODB_CONNECTION",
-  { useNewUrlParser: true }
-);
-
-// When connection is successful
-connection.once("open", () => console.log("Connected to mongodb database"));
-
-// When connection is failed
-connection.once("error", error => console.log("Failed connecting to database. \nError:", error));
-
-// ROUTES
-Routes(app);
+app.use(morgan("dev"));
 
 // Error handler
-if (app.get("env") === "development") {
+if (config.IS_DEV === "development") {
   app.use(errorHandler());
 }
 
+// Create Router
+const router = new Router(app);
+
+// Enable /v1 routes
+router.version1();
+
+// Create server
+const server = http.createServer(app);
+
 // Start the server
-const server = app.listen(PORT, () => console.log(`Listening for request on port ${PORT}`));
+server.listen(port, () => console.log(`Listening on port ${port}!`));
