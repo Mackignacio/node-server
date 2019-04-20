@@ -1,12 +1,11 @@
-import { Express } from "express";
-import { users } from "./lib/users.routes";
+import { Router } from "express";
+import { RoutesVersion1 } from "./v1";
 
-export class Router {
-  constructor(private app: Express) {
-    this.app = app;
-  }
+export class Routes {
+  private router: Router = Router();
+  private _v1: RoutesVersion1 = new RoutesVersion1(this.router);
 
-  version1() {
-    this.app.use("/v1/users", users);
+  get v1() {
+    return this._v1;
   }
 }
