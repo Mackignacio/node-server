@@ -1,4 +1,4 @@
-# Racket-APi
+# Racket-Api
 
 This is a Node Server for Racket Studios API
 
