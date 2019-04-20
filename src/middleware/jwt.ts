@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import config from "../helper/config";
 
-const generateToken = (data: Object, secret: string, expiresIn = "30s"): string => {
+const generateToken = (data: Object, secret: string, expiresIn = "60s"): string => {
   return jwt.sign(data, secret, { expiresIn });
 };
 
