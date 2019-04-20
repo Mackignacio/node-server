@@ -9,6 +9,6 @@ export class Router {
   }
 
   version1() {
-    this.app.use("/v1/users", this.routes.v1.users);
+    this.app.use("/v1/users", this.routes.v1.users());
   }
 }
