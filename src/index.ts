@@ -1,10 +1,10 @@
 // Node_modules imports
-import express, { Express } from "express";
-import errorHandler from "errorhandler";
 import bodyParser from "body-parser";
-import config from "./helper/config";
-import morgan from "morgan";
+import errorHandler from "errorhandler";
+import express, { Express } from "express";
 import http from "http";
+import morgan from "morgan";
+import config from "./helper/config";
 
 // Local imports
 import { Router } from "./router";
@@ -36,3 +36,5 @@ const server = http.createServer(app);
 
 // Start the server
 server.listen(port, () => console.log(`Listening on port ${port}!`));
+
+export default app;
