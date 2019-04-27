@@ -13,6 +13,8 @@
     },
     "eofline": true,
     "forin": true,
+    "named-imports-order": "any",
+    "ordered-imports": false,
     "typedef": [true, "call-signature", "arrow-call-signature", "parameter", "member-variable-declaration"],
     "import-spacing": true,
     "max-line-length": [true, 160],
