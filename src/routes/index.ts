@@ -5,7 +5,7 @@ export class Routes {
   private router: Router = Router();
   private _v1: RoutesVersion1 = new RoutesVersion1(this.router);
 
-  get v1() {
+  get v1(): RoutesVersion1 {
     return this._v1;
   }
 }

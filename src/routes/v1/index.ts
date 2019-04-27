@@ -9,7 +9,7 @@ export class RoutesVersion1 {
     this.router = router;
   }
 
-  users() {
+  public users(): Router {
     return this.router
       .get("/", jwt.verifyToken, this.user.getAllUsers)
       .post("/", jwt.verifyToken, this.user.addUser)

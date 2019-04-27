@@ -8,7 +8,7 @@ export class Router {
     this.app = app;
   }
 
-  version1() {
+  public version1(): void {
     this.app.use("/v1/users", this.routes.v1.users());
   }
 }
